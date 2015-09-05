@@ -3,7 +3,7 @@ if [[ "$USER" != 'root' ]]; then
 	echo "Sorry, you need to run this as root"
 	exit
 fi
-
+apt-get update
 apt-get -y --force-yes  install dpkg-dev build-essential zlib1g-dev libpcre3 libpcre3-dev unzip
 
 echo "deb http://nginx.org/packages/ubuntu/ trusty nginx" >> /etc/apt/sources.list.d/nginx.list
@@ -21,19 +21,24 @@ apt-get -y --force-yes build-dep nginx
 
 mkdir -p ~/new/ngx_pagespeed/
 cd ~/new/ngx_pagespeed/
-ngx_version=1.9.32.6
-wget https://github.com/pagespeed/ngx_pagespeed/archive/release-${ngx_version}-beta.zip
-unzip release-${ngx_version}-beta.zip
-cd ngx_pagespeed-release-${ngx_version}-beta/
-wget --no-check-certificate https://dl.google.com/dl/page-speed/psol/${ngx_version}.tar.gz
-tar -xzf ${ngx_version}.tar.gz
-cd ~/new/nginx_source/nginx-1.8.0/debian/
-sed -i '22 a --add-module=../../ngx_pagespeed/ngx_pagespeed-release-1.9.32.6-beta \\' rules
-sed -i '61 a --add-module=../../ngx_pagespeed/ngx_pagespeed-release-1.9.32.6-beta \\' rules
-cd ~/new/nginx_source/nginx-1.8.0/
+
+wget --no-check-certificate https://github.com/pagespeed/ngx_pagespeed/archive/master.zip
+unzip master.zip
+cd ngx_pagespeed-master/
+echo '#!/bin/bash' >> bush.sh
+grep wget config > bush.sh
+sed -i 's/echo "     $ w/w/' bush.sh
+sed -i 's/gz"/gz/' bush.sh
+bash bush.sh
+tar -xzf *.tar.gz
+
+cd ~/new/nginx_source/nginx-*/debian/
+sed -i '22 a --add-module=../../ngx_pagespeed/ngx_pagespeed-master \\' rules
+sed -i '61 a --add-module=../../ngx_pagespeed/ngx_pagespeed-master \\' rules
+cd ~/new/nginx_source/nginx-*/
 dpkg-buildpackage -b
 cd ~/new/nginx_source/
-dpkg -i nginx_1.8.0-1~trusty_amd64.deb
+dpkg -i nginx_*amd64.deb
 nginx -V
 mkdir -p /var/ngx_pagespeed_cache
 chown -R www-data:www-data /var/ngx_pagespeed_cache
