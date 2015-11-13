@@ -47,3 +47,4 @@ sed -i '30ipagespeed on;' nginx.conf
 sed -i '31ipagespeed FileCachePath /var/ngx_pagespeed_cache;' nginx.conf
 service nginx restart
 curl -I -p http://localhost|grep X-Page-Speed
+exit
