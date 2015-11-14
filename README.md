@@ -7,6 +7,9 @@ Installation
 
 'wget https://github.com/Levantado/ngx_pagespeed-install-script/releases/download/1a/page-speed.sh ; bash page-speed.sh'
 
+for 15.10 use
+
+'https://github.com/Levantado/ngx_pagespeed-install-script/releases/download/1a/page-speed-1v1.sh ; bash page-speed-1v1.sh'
 
 <h2>How to Install nginx and google pagespeed on Ubuntu 14.04 x64</h2>
 
