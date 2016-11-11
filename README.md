@@ -1,45 +1,32 @@
-## ngx_pagespeed-install-script
-#Install nginx and pagespeed latest version on clean Ubuntu 14.04 x64
 
-Need root right - sudo su
-
-Installation
-
-'wget https://github.com/Levantado/ngx_pagespeed-install-script/releases/download/1a/page-speed.sh ; bash page-speed.sh'
-
-for 15.10 use
-
-'https://github.com/Levantado/ngx_pagespeed-install-script/releases/download/1a/page-speed-1v1.sh ; bash page-speed-1v1.sh'
-
-<h2>How to Install nginx and google pagespeed on Ubuntu 14.04 x64</h2>
+<h2>How to Install nginx and google pagespeed on Ubuntu 14.04, 15.05, 16.04</h2>
 
 <h3>What is it:</h3>
 
 <blockquote>
-<p><strong>Nginx</strong> is an HTTP and reverse proxy server, a mail proxy server, and a generic TCP proxy server, originally written by Igor Sysoev. For a long time, it has been running on many heavily loaded Russian sites including Yandex, Mail.Ru, VK, and Rambler. According to Netcraft, nginx served or proxied 22.61% busiest sites in August 2015. Here are some of the success stories: Netflix, Wordpress.com, FastMail.FM.<em>
-</em></p>
+<p><strong>Nginx</strong> is an HTTP and reverse proxy server, a mail proxy server, and a generic TCP proxy server, originally written by Igor Sysoev. For a long time, it has been running on many heavily loaded Russian sites including Yandex, Mail.Ru, VK, and Rambler. According to Netcraft, nginx served or proxied 22.61% busiest sites in August 2015. Here are some of the success stories: Netflix, Wordpress.com, FastMail.FM.</p>
 
 <p><em><strong>Ngxpagespeed</strong> speeds up your site and reduces page load time by automatically applying web performance best practices to pages and associated assets (CSS, JavaScript, images) without requiring you to modify your existing content or workflow. Features include:</em></p>
 
-<p><em>  • Image optimization: stripping meta-data, dynamic resizing, recompression</em></p>
+<p><em>• Image optimization: stripping meta-data, dynamic resizing, recompression</em></p>
 
-<p><em>  • CSS &amp; JavaScript minification, concatenation, inlining, and outlining</em></p>
+<p><em>• CSS &amp; JavaScript minification, concatenation, inlining, and outlining</em></p>
 
-<p><em>  • Small resource inlining</em></p>
+<p><em>• Small resource inlining</em></p>
 
-<p><em>  • Deferring image and JavaScript loading</em></p>
+<p><em>• Deferring image and JavaScript loading</em></p>
 
-<p><em>  • HTML rewriting</em></p>
+<p><em>• HTML rewriting</em></p>
 
-<p><em>  • Cache lifetime extension</em></p>
+<p><em>• Cache lifetime extension</em></p>
 
-<p><em>  • and more</em></p>
+<p><em>• and more</em></p>
 </blockquote>
 
 <h3>Prerequisites</h3>
 
 <ul>
-	<li>Ubuntu 14.04 x64 (may 15.05)</li>
+	<li>Ubuntu 12.04, 14.04, 16.04</li>
 	<li>root privileges</li>
 	<li>few knowledge using vim</li>
 </ul>
@@ -54,35 +41,36 @@ for 15.10 use
 <pre><code>sudo nano /etc/apt/sources.list.d/nginx.list
 </code></pre>
 
-<p>Paste in this two string </p>
+<p>Paste in two string </p>
 
-<pre><code>deb http://nginx.org/packages/ubuntu/ trusty nginx
+<p>For 12.04:</p>
+
+<pre><code>deb http://nginx.org/packages/ubuntu/ precise nginx
+deb-src http://nginx.org/packages/ubuntu/ precise nginx
+</code></pre>
+
+<p>For 14.04:</p>
+
+<pre><code>deb http://nginx.org/packages/ubuntu/ trusty nginx 
 deb-src http://nginx.org/packages/ubuntu/ trusty nginx
 </code></pre>
 
-<p>You may use vim that more helping because that have syntax highlighting. (In vim enable inserting mode press “i”, disabling all mode press “ESC”, exit without save “ZQ”, exit with save ”ZZ”);</p>
+<p>For 16.04:</p>
 
-<p>This difference</p>
-
-<p>nano:<img src="Screen%20Shot%202015-09-01%20at%2013.19.27.png"/></p>
-
-<p>vim: <img src="Screen%20Shot%202015-09-01%20at%2013.19.49.png"/></p>
-
-<pre><code>sudo apt-get update
+<pre><code>deb http://nginx.org/packages/ubuntu/ xenial nginx 
+deb-src http://nginx.org/packages/ubuntu/ xenial nginx
 </code></pre>
-
+After that update
+<pre><code> sudo apt-get update</code></pre>
 <p>Command stop and show strings like that:</p>
 
-<p> <em>
-</em></p>
+<p><em><strong>GPG error: http://nginx.org &lt;name package&gt; Release: The following signatures couldn&#39;t be verified because the public key is not available: NOPUBKEY ABF5BD8xxxxxxx</strong></em></p>
 
-<p><em><strong>GPG error: http://nginx.org trusty Release: The following signatures couldn&#39;t be verified because the public key is not available: NOPUBKEY ABF5BD8xxxxxxx</strong></em></p>
-
-<p>Don’t worry add this key </p>
+<p>Don&#39;t worry add this key</p>
 
 <p>￼</p>
 
-<pre><code>sudo sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys ABF5BD8xxxxxxx￼
+<pre><code>wget -q &quot;http://nginx.org/packages/keys/nginx_signing.key&quot; -O-| sudo apt-key add -
 </code></pre>
 
 <p>repeat</p>
@@ -90,146 +78,183 @@ deb-src http://nginx.org/packages/ubuntu/ trusty nginx
 <pre><code>sudo apt-get update
 </code></pre>
 
-<h3><strong>Step 3 Downloading and extracting</strong></h3>
+<h3><strong>Step 3 Installing with use Automated Installer</strong></h3>
 
-<p><strong><em>Step 3.1 Download nginx</em></strong></p>
+<p>It’s simple like never before, just run.</p>
 
-<p>Enter root mode</p>
-
-<pre><code>sudo su
+<pre><code>bash &lt;(curl -f -L -sS https://ngxpagespeed.com/install) \
+     --nginx-version latest
 </code></pre>
 
-<p>Prepare place</p>
+<p>They ask you start for every major step. And finish.</p>
 
-<pre><code>cd ~
-mkdir -p ~/new/nginx_source/
-cd ~/new/nginx_source/
+<figure><img src="%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202016-11-12%20%D0%B2%200.51.53.png"/></figure>
+
+<p>Step 1 you may skip, installer detect missing dependencies.</p>
+
+<h3><strong>Step 4 Initial script</strong></h3>
+
+<p><a href="http://kbeezie.com/debian-ubuntu-nginx-init-script/">http://kbeezie.com/debian-ubuntu-nginx-init-script/</a></p>
+
+<p>On this page default initial script for control NGINX</p>
+
+<p>You may create that script yourself.</p>
+
+<pre><code>sudo nano /etc/init.d/nginx
 </code></pre>
 
-<p>Downloading</p>
+<p>Paste script and change path to installing package.</p>
 
-<pre><code>apt-get source nginx
-apt-get build-dep nginx
+<p>After Step 3 your package local in /usr/local/nginx/</p>
+
+<p>Or paste that</p>
+
+<pre><code>#! /bin/sh
+ 
+### BEGIN INIT INFO
+# Provides:          nginx
+# Required-Start:    $all
+# Required-Stop:     $all
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: starts the nginx web server
+# Description:       starts nginx using start-stop-daemon
+### END INIT INFO
+ 
+PATH=/usr/local/nginx:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+DAEMON=/usr/local/nginx/sbin/nginx
+NAME=nginx
+DESC=nginx
+ 
+test -x $DAEMON || exit 0
+ 
+# Include nginx defaults if available
+if [ -f /etc/default/nginx ] ; then
+        . /etc/default/nginx
+fi
+ 
+set -e
+ 
+case &quot;$1&quot; in
+  start)
+        echo -n &quot;Starting $DESC: &quot;
+        start-stop-daemon --start --quiet --pidfile /usr/local/nginx/logs/$NAME.pid \
+                --exec $DAEMON -- $DAEMON_OPTS
+        echo &quot;$NAME.&quot;
+        ;;
+  stop)
+        echo -n &quot;Stopping $DESC: &quot;
+        start-stop-daemon --stop --quiet --pidfile /usr/local/nginx/logs/$NAME.pid \
+                --exec $DAEMON
+        echo &quot;$NAME.&quot;
+        ;;
+  restart|force-reload)
+        echo -n &quot;Restarting $DESC: &quot;
+        start-stop-daemon --stop --quiet --pidfile \
+                /usr/local/nginx/logs/$NAME.pid --exec $DAEMON
+        sleep 1
+        start-stop-daemon --start --quiet --pidfile \
+                /usr/local/nginx/logs/$NAME.pid --exec $DAEMON -- $DAEMON_OPTS
+        echo &quot;$NAME.&quot;
+        ;;
+  reload)
+      echo -n &quot;Reloading $DESC configuration: &quot;
+      start-stop-daemon --stop --signal HUP --quiet --pidfile /usr/local/nginx/logs/$NAME.pid \
+          --exec $DAEMON
+      echo &quot;$NAME.&quot;
+      ;;
+  *)
+        N=/etc/init.d/$NAME
+        echo &quot;Usage: $N {start|stop|restart|force-reload}&quot; &gt;&amp;2
+        exit 1
+        ;;
+esac
+ 
+exit 0</code></pre>
 </code></pre>
 
-<p><strong><em>Step 3.2 Download pagespeed</em></strong></p>
+<h3><strong>Step 5 using</strong></h3>
 
-<p>Prepare place</p>
+<p>for start use:</p>
 
-<pre><code>cd ~
-mkdir -p ~/new/ngx_pagespeed/
-cd ~/new/ngx_pagespeed/
+<pre><code>sudo /etc/init.d/nginx start
 </code></pre>
 
-<p><em>You may see this steps in official site <a href="https://developers.google.com/speed/pagespeed/module/build_ngx_pagespeed_from_source">https://developers.google.com/speed/pagespeed/module/build_ngx_pagespeed_from_source</a></em></p>
+<p>for stop:</p>
 
-<p><strong>Downloading and unpacking</strong></p>
-
-<p>Check ngx-version on the official site and change if you need. <a href="https://developers.google.com/speed/pagespeed/module/release_notes"> https://developers.google.com/speed/pagespeed/module/release<em>notes </em></a><img src="Screen%20Shot%202015-09-01%20at%2013.14.17.png"/></p>
-
-<pre><code>ngx_version=1.9.32.6
-wget https://github.com/pagespeed/ngx_pagespeed/archive/release-${ngx_version}-beta.zip
-unzip release-${ngx_version}-beta.zip
-cd ngx_pagespeed-release-1.9.32.6-beta/
-wget https://dl.google.com/dl/page-speed/psol/${ngx_version}.tar.gz
-tar -xzf 1.9.32.6.tar.gz
+<pre><code>sudo /etc/init.d/nginx stop
 </code></pre>
 
-<h3><strong>Step 4 Configure before build</strong></h3>
+<p>for restart:</p>
 
-<pre><code>cd ~/new/nginx_source/nginx-1.8.0/debian/
+<pre><code>sudo /etc/init.d/nginx  restart
 </code></pre>
 
-<p>Time use vim. That help avoid syntax errors</p>
+<p>for reload:</p>
 
-<pre><code>vim rules
+<pre><code>sudo /etc/init.d/nginx reload
 </code></pre>
 
-<p>Need add in configure module that strings</p>
+<h3><strong>Step 6 check and configure</strong></h3>
 
-<pre><code>--add-module=../../ngxpagespeed/ngxpagespeed-release-1.9.32.6-beta \
+<p>Now our NGINX must run and need see that real, if you not blocking 80 port you can just enter to your server ip, or</p>
+
+<pre><code>curl -I -p http://localhost
 </code></pre>
 
-<p>after string <code>--prefix=/etc/nginx \
-</code></p>
+<figure><img src="%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202016-11-12%20%D0%B2%201.49.17.png"/></figure>
 
-<p>in two section </p>
+<p>Ok, NGINX start, but we need NGX-pagespeed.</p>
 
-<p>first section: <code>ovveride_dh_auto_build: </code></p>
+<blockquote>
+<blockquote>
+<p>PageSpeed Configuration</p>
+</blockquote>
 
-<p>second: <code>configure_debug:</code></p>
+<p>Enabling the Module</p>
 
-<p>If you see that highlights this string in vim different then other strings check “ \” and “—“ and set manually.</p>
+<p>In Nginx the configuration typically should go in your nginx.conf which for source installs defaults to being in:</p>
 
-<h3><strong>Step 5 Building</strong></h3>
+<p>/usr/local/nginx/conf/</p>
 
-<pre><code>cd ~/new/nginx_source/nginx-1.8.0/
-dpkg-buildpackage -b
-cd ~/new/ngix_source/
-dpkg -i nginx_1.8.0-1~trusty_amd64.deb
+<p>In Apache PageSpeed is enabled automatically when you install the module while in Nginx you need to add several lines to your nginx.conf. In every server block where PageSpeed is enabled add</p>
+</blockquote>
+
+<p>Ok that we know what do next paste in every block nginx.conf code</p>
+
+<pre><code>sudo nano /usr/local/nginx/conf/nginx.conf
 </code></pre>
 
-<h3><strong>Step 6 Install</strong></h3>
-
-<pre><code>dpkg -i/new/ngix_source/nginx_1.8.0-1trusty_amd64.deb
-</code></pre>
-
-<figure><img src="Screen%20Shot%202015-09-01%20at%2013.09.52.png"/></figure>
-
-<h3><strong>Step 7 Check</strong></h3>
-
-<pre><code>nginx -V
-</code></pre>
-
-<p>in text we must see</p>
-
-<figure><img src="Screen%20Shot%202015-09-01%20at%2013.01.13.png"/></figure>
-
-<p>Now go to you public IP</p>
-
-<p>You must see: </p>
-
-<figure><img src="Screen%20Shot%202015-09-01%20at%2013.06.51.png"/></figure>
-
-<h3><strong>Step 8 Config</strong></h3>
-
-<p>Make cache folder</p>
-
-<pre><code>mkdir -p /var/ngx_pagespeed_cache
-chown -R www-data:www-data /var/ngx_pagespeed_cache
-</code></pre>
-
-<p>Enable pagespeed and cache</p>
-
-<pre><code>vim  /etc/nginx/nginx.conf
-</code></pre>
-
-<p>In http section add this strings</p>
+<p>Paste this code:</p>
 
 <pre><code>pagespeed on;
+
+# Needs to exist and be writable by nginx.  Use tmpfs for best performance.
 pagespeed FileCachePath /var/ngx_pagespeed_cache;
+
+# Ensure requests for pagespeed optimized resources go to the pagespeed handler
+# and no extraneous headers get set.
+location ~ &quot;\.pagespeed\.([a-z]\.)?[a-z]{2}\.[^.]{10}\.[^.]+&quot; {
+  add_header &quot;&quot; &quot;&quot;;
+}
+location ~ &quot;^/pagespeed_static/&quot; { }
+location ~ &quot;^/ngx_pagespeed_beacon$&quot; { }
 </code></pre>
 
-<p>Like that</p>
+<p>Save and restart reload nginx</p>
 
-<figure><img src="Screen%20Shot%202015-09-01%20at%2013.42.55.png"/></figure>
-
-<p>Restart</p>
-
-<pre><code>service nginx restart
+<pre><code>sudo /etc/init.d/nginx reload
 </code></pre>
 
-<p>Check </p>
+<p>Now use curl</p>
 
-<pre><code>curl -I -p http://localhost|grep X-Page-Speed
+<pre><code>curl -I -p http://localhost
 </code></pre>
 
-<p>You must see </p>
+<figure><img src="%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202016-11-12%20%D0%B2%201.57.35.png"/></figure>
 
-<figure><img src="Screen%20Shot%202015-09-01%20at%2013.45.50.png"/></figure>
-
-<p>It’s all guys!</p>
-
+<p>It’s ALL. No need scripts any more. </p>
 <p>P.S. for configure like wanna you - go here :</p>
 
 <p><a href="https://developers.google.com/speed/pagespeed/module/configuration">https://developers.google.com/speed/pagespeed/module/configuration</a></p>
+
