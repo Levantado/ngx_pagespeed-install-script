@@ -173,6 +173,11 @@ esac
 exit 0</code></pre>
 </code></pre>
 
+<p>Now run this command to give your script executable permissions.</p>
+
+<pre><code>sudo chmod +x /etc/init.d/nginx
+</code></pre>
+
 <h3><strong>Step 5 using</strong></h3>
 
 <p>for start use:</p>
